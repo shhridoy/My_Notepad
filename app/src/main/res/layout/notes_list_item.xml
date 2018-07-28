@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:id="@+id/RLNotesListItem">
+
+    <TextView
+        android:id="@+id/listItemTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/listItemTimeDateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:layout_below="@id/listItemTitleTV"/>
+
+    <TextView
+        android:id="@+id/listItemInvisisbleIDTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:visibility="invisible"
+        android:layout_below="@id/listItemTitleTV"/>
+
+</RelativeLayout>

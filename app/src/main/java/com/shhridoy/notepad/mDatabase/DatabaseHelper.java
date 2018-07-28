@@ -56,7 +56,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getNotes() {
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM "+Constants.NOTES_TABLE, null);
-        this.getReadableDatabase().close();
         return cursor;
     }
 
