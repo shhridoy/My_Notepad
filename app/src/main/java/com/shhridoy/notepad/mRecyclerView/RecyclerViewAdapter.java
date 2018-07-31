@@ -93,6 +93,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvInvisibleID = itemView.findViewById(R.id.listItemInvisisbleIDTV);
             rlItems = itemView.findViewById(R.id.RLNotesListItem);
             itemView.setOnCreateContextMenuListener(this);
+            notifyDataSetChanged();
             //itemView.setOnClickListener(this);
         }
 
