@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.shhridoy.notepad.AddNoteActivity;
 import com.shhridoy.notepad.R;
+import com.shhridoy.notepad.ViewNoteActivity;
 import com.shhridoy.notepad.mDatabase.DatabaseHelper;
 
 import org.w3c.dom.Text;
@@ -70,7 +71,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.rlItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, listItem.getId()+"\n"+listItem.getTitle()+"\n"+listItem.getDetails(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, ViewNoteActivity.class);
+                intent.putExtra("ID", listItem.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }
@@ -93,7 +97,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvInvisibleID = itemView.findViewById(R.id.listItemInvisisbleIDTV);
             rlItems = itemView.findViewById(R.id.RLNotesListItem);
             itemView.setOnCreateContextMenuListener(this);
-            notifyDataSetChanged();
             //itemView.setOnClickListener(this);
         }
 

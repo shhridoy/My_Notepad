@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity
                 itemsList.add(listItems);
                 adapter = new RecyclerViewAdapter(getApplicationContext(), itemsList);
                 recyclerView.setAdapter(adapter);
+                Toast.makeText(getApplicationContext(), id+"\n"+title, Toast.LENGTH_SHORT).show();
             }
         }
     }
