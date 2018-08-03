@@ -1,5 +1,6 @@
 package com.shhridoy.notepad;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.shhridoy.notepad.mDatabase.DatabaseHelper;
@@ -146,7 +148,6 @@ public class MainActivity extends AppCompatActivity
                 itemsList.add(listItems);
                 adapter = new RecyclerViewAdapter(getApplicationContext(), itemsList);
                 recyclerView.setAdapter(adapter);
-                Toast.makeText(getApplicationContext(), id+"\n"+title, Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -43,7 +43,7 @@ public class ViewNoteActivity extends AppCompatActivity {
         tvDetails = findViewById(R.id.viewNoteDetailsTV);
         btnEdit = findViewById(R.id.editBtn);
 
-        note_id = getIntent().getIntExtra("ID", 1);
+        note_id = Integer.parseInt(getIntent().getStringExtra("ID"));
 
         if (getIntent() != null) {
             RetrieveDBInfoByID dbdata = new RetrieveDBInfoByID(this, note_id);
@@ -55,7 +55,7 @@ public class ViewNoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ViewNoteActivity.this, AddNoteActivity.class);
-                intent.putExtra("ID", note_id);
+                intent.putExtra("ID", String.valueOf(note_id));
                 startActivity(intent);
             }
         });
@@ -76,8 +76,8 @@ public class ViewNoteActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_delete_note) {
-            DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
-            boolean removed = dbAdapter.removeNoteFromDB(note_id);
+            //DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+            boolean removed = DBAdapter.removeNoteFromDB(getApplicationContext(), note_id);
             if (removed) {
                 finish();
             }

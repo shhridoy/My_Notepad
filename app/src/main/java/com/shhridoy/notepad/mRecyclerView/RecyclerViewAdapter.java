@@ -2,6 +2,7 @@ package com.shhridoy.notepad.mRecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,7 +37,9 @@ import android.widget.Toast;
 import com.shhridoy.notepad.AddNoteActivity;
 import com.shhridoy.notepad.R;
 import com.shhridoy.notepad.ViewNoteActivity;
+import com.shhridoy.notepad.mDatabase.DBAdapter;
 import com.shhridoy.notepad.mDatabase.DatabaseHelper;
+import com.shhridoy.notepad.mDatabase.RetrieveDBInfoByID;
 
 import org.w3c.dom.Text;
 
@@ -71,10 +77,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.rlItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ViewNoteActivity.class);
-                intent.putExtra("ID", listItem.getId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+                if (listItem.getPassword() == null) {
+                    Intent intent = new Intent(context, ViewNoteActivity.class);
+                    intent.putExtra("ID", String.valueOf(listItem.getId()));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } else {
+                    inputPasswordDialog(listItem.getId());
+                }
             }
         });
     }
@@ -123,20 +133,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 switch (item.getItemId()) {
                     case 1:
                         Intent intent = new Intent(context, AddNoteActivity.class);
-                        intent.putExtra("ID", Integer.parseInt(tvInvisibleID.getText().toString()));
+                        intent.putExtra("ID", tvInvisibleID.getText().toString());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                         return true;
 
                     case 2:
-                        DatabaseHelper dbHelper = new DatabaseHelper(context);
-                        boolean removed = dbHelper.removeNote(Integer.parseInt(tvInvisibleID.getText().toString()));
+                        boolean removed = DBAdapter.removeNoteFromDB(context, Integer.parseInt(tvInvisibleID.getText().toString()));
                         if (removed) {
                             itemsList.remove(getAdapterPosition());
                             notifyItemRemoved(getAdapterPosition());
-                            Toast.makeText(context, "Note has been removed!", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(context, "Note doesn't removed!!!", Toast.LENGTH_LONG).show();
                         }
                         return true;
 
@@ -148,6 +154,46 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         };
     }
-    
+
+    private void inputPasswordDialog(final int id) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.input_password_dialog);
+
+        final EditText etPassword = dialog.findViewById(R.id.inputPasswdDlgPasswdET);
+        final EditText etPasswordHint = dialog.findViewById(R.id.inputPasswdDlgPasswdHintET);
+        Button btnOk = dialog.findViewById(R.id.inputPasswdDlgBtnOk);
+        Button btnCancel = dialog.findViewById(R.id.inputPasswdDlgBtnCancel);
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RetrieveDBInfoByID rt = new RetrieveDBInfoByID(context, id);
+                if (rt.getPassword().equals(etPassword.getText().toString().trim())) {
+                    Intent intent = new Intent(context, ViewNoteActivity.class);
+                    intent.putExtra("ID", String.valueOf(id));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } else if (!rt.getPassword().equals(etPassword.getText().toString().trim())){
+                    Toast.makeText(context, "Password doesn't match!!", Toast.LENGTH_LONG).show();
+                } else if (etPasswordHint.getText().toString().trim().length() != 0 &&
+                        !rt.getPassword_hint().equals(etPasswordHint.getText().toString())) {
+                    Toast.makeText(context, "Hint doesn't match!!", Toast.LENGTH_LONG).show();
+                }
+
+                etPassword.setText("");
+                etPasswordHint.setText("");
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+    }
 
 }
