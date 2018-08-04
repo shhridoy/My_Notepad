@@ -68,14 +68,11 @@ public class AddNoteActivity extends AppCompatActivity {
                                 note_color
                         );
                     } else {
-                        DBAdapter.editNoteInDB(
+                        DBAdapter.editNotesTitleAndDetails(
                                 getApplicationContext(),
                                 note_id,
                                 note_title,
-                                note_details,
-                                note_password,
-                                note_password_hint,
-                                note_color
+                                note_details
                         );
                     }
                     Intent intent = new Intent(AddNoteActivity.this, MainActivity.class);
@@ -104,7 +101,6 @@ public class AddNoteActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_add_password) {
-            Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
             passwordSetDialog();
             return true;
         }
@@ -140,6 +136,9 @@ public class AddNoteActivity extends AppCompatActivity {
                 } else {
                     note_password = passwdField1.getText().toString().trim();
                     note_password_hint = passwdHintField.getText().toString().trim();
+                    if (getIntent().getStringExtra("ID") != null) {
+                        DBAdapter.editNotesPassword(getApplicationContext(), note_id, note_password, note_password_hint);
+                    }
                     dialog.cancel();
                 }
             }

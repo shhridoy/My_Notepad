@@ -54,6 +54,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    public boolean editNotesTitleDetails(int id, String title, String details) {
+        ContentValues cv = new ContentValues();
+        cv.put(Constants.NOTES_TITLE, title);
+        cv.put(Constants.NOTES_DETAILS, details);
+        int result = this.getWritableDatabase()
+                .update(Constants.NOTES_TABLE, cv, Constants.NOTES_ID+" =?", new String[]{String.valueOf(id)});
+        this.getWritableDatabase().close();
+        return result > 0;
+    }
+
+    public boolean editNotesPassword(int id, String password, String password_hint) {
+        ContentValues cv = new ContentValues();
+        cv.put(Constants.NOTES_PASSWORD, password);
+        cv.put(Constants.NOTES_PASS_HINT, password_hint);
+        int result = this.getWritableDatabase()
+                .update(Constants.NOTES_TABLE, cv, Constants.NOTES_ID+" =?", new String[]{String.valueOf(id)});
+        this.getWritableDatabase().close();
+        return result > 0;
+    }
+
+    public boolean editNotesColor(int id, String color) {
+        ContentValues cv = new ContentValues();
+        cv.put(Constants.NOTES_COLOR, color);
+        int result = this.getWritableDatabase()
+                .update(Constants.NOTES_TABLE, cv, Constants.NOTES_ID+" =?", new String[]{String.valueOf(id)});
+        this.getWritableDatabase().close();
+        return result > 0;
+    }
+
     public Cursor getNotes() {
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM "+Constants.NOTES_TABLE, null);
         return cursor;
