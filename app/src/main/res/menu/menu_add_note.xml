@@ -7,9 +7,12 @@
         android:title="Password"
         android:icon="@android:drawable/ic_secure"
         app:showAsAction="ifRoom" />
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_color"
         android:orderInCategory="101"
-        android:title="@string/action_settings"
+        android:title="Note color"
+        android:icon="@android:drawable/ic_menu_compass"
         app:showAsAction="never" />
+
 </menu>

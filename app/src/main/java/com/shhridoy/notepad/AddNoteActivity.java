@@ -98,7 +98,8 @@ public class AddNoteActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_color) {
+
             return true;
         } else if (id == R.id.action_add_password) {
             passwordSetDialog();
