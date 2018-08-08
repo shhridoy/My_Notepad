@@ -1,6 +1,5 @@
 package com.shhridoy.notepad;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.shhridoy.notepad.mDatabase.DatabaseHelper;
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            
             return true;
         } else if (id == R.id.action_add_notes) {
             startActivity(new Intent(this, AddNoteActivity.class));
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity
 
                 ListItem listItems = new ListItem(id, title, details, date_time, password, password_hint, color);
                 itemsList.add(listItems);
-                adapter = new RecyclerViewAdapter(getApplicationContext(), itemsList);
+                adapter = new RecyclerViewAdapter(this, itemsList);
                 recyclerView.setAdapter(adapter);
             }
         }

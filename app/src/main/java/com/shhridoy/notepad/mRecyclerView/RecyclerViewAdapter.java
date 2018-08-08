@@ -177,6 +177,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     intent.putExtra("ID", String.valueOf(id));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                    dialog.cancel();
                 } else if (!rt.getPassword().equals(etPassword.getText().toString().trim())){
                     Toast.makeText(context, "Password doesn't match!!", Toast.LENGTH_LONG).show();
                 } else if (etPasswordHint.getText().toString().trim().length() != 0 &&
