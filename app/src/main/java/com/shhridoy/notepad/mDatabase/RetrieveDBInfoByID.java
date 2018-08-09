@@ -11,7 +11,8 @@ public class RetrieveDBInfoByID {
 
     private Context context;
     private int id;
-    private String title = null, details = null, date_time = null, password = null, password_hint = null, color = null;
+    private String title = null, details = null, date_time = null, color = null;
+    private int lock = 0;
 
     public RetrieveDBInfoByID(Context context, int id) {
         this.context = context;
@@ -27,9 +28,8 @@ public class RetrieveDBInfoByID {
                 title = cursor.getString(1);
                 details = cursor.getString(2);
                 date_time = cursor.getString(3);
-                password = cursor.getString(4);
-                password_hint = cursor.getString(5);
-                color = cursor.getString(6);
+                lock = cursor.getInt(4);
+                color = cursor.getString(5);
                 break;
             }
         }
@@ -47,12 +47,8 @@ public class RetrieveDBInfoByID {
         return date_time;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPassword_hint() {
-        return password_hint;
+    public int getLock() {
+        return lock;
     }
 
     public String getColor() {

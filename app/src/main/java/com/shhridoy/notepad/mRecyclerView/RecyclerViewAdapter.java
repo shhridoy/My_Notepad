@@ -1,27 +1,11 @@
 package com.shhridoy.notepad.mRecyclerView;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteException;
-import android.graphics.Color;
-import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.AlignmentSpan;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,8 +15,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,12 +23,9 @@ import com.shhridoy.notepad.AddNoteActivity;
 import com.shhridoy.notepad.R;
 import com.shhridoy.notepad.ViewNoteActivity;
 import com.shhridoy.notepad.mDatabase.DBAdapter;
-import com.shhridoy.notepad.mDatabase.DatabaseHelper;
-import com.shhridoy.notepad.mDatabase.RetrieveDBInfoByID;
+import com.shhridoy.notepad.mDialogs.MyDialogs;
+import com.shhridoy.notepad.mUtilities.MyPreferences;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.List;
 
 /**
@@ -80,13 +59,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.rlItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listItem.getPassword() == null) {
+                if (listItem.getLock() == 0) {
                     Intent intent = new Intent(context, ViewNoteActivity.class);
                     intent.putExtra("ID", String.valueOf(listItem.getId()));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 } else {
-                    inputPasswordDialog(listItem.getId());
+                    MyDialogs.inputPassword(context, listItem.getId(), "View Note");
                 }
             }
         });
@@ -156,48 +135,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 return false;
             }
         };
-    }
-
-    private void inputPasswordDialog(final int id) {
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.input_password_dialog);
-
-        final EditText etPassword = dialog.findViewById(R.id.inputPasswdDlgPasswdET);
-        final EditText etPasswordHint = dialog.findViewById(R.id.inputPasswdDlgPasswdHintET);
-        Button btnOk = dialog.findViewById(R.id.inputPasswdDlgBtnOk);
-        Button btnCancel = dialog.findViewById(R.id.inputPasswdDlgBtnCancel);
-
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RetrieveDBInfoByID rt = new RetrieveDBInfoByID(context, id);
-                if (rt.getPassword().equals(etPassword.getText().toString().trim())) {
-                    Intent intent = new Intent(context, ViewNoteActivity.class);
-                    intent.putExtra("ID", String.valueOf(id));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    dialog.cancel();
-                } else if (!rt.getPassword().equals(etPassword.getText().toString().trim())){
-                    Toast.makeText(context, "Password doesn't match!!", Toast.LENGTH_LONG).show();
-                } else if (etPasswordHint.getText().toString().trim().length() != 0 &&
-                        !rt.getPassword_hint().equals(etPasswordHint.getText().toString())) {
-                    Toast.makeText(context, "Hint doesn't match!!", Toast.LENGTH_LONG).show();
-                }
-
-                etPassword.setText("");
-                etPasswordHint.setText("");
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
-
-        dialog.show();
     }
 
 }

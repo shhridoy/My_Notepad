@@ -10,17 +10,15 @@ public class ListItem {
     private String title;
     private String details;
     private String date_time;
-    private String password;
-    private String password_hint;
+    private int lock;
     private String color;
 
-    public ListItem(int id, String title, String details, String date_time, String password, String password_hint, String color) {
+    public ListItem(int id, String title, String details, String date_time, int lock, String color) {
         this.id = id;
         this.title = title;
         this.details = details;
         this.date_time = date_time;
-        this.password = password;
-        this.password_hint = password_hint;
+        this.lock = lock;
         this.color = color;
     }
 
@@ -47,12 +45,8 @@ public class ListItem {
         return date_time;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPassword_hint() {
-        return password_hint;
+    public int getLock() {
+        return lock;
     }
 
     public String getColor() {

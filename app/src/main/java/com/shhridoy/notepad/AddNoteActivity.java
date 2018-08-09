@@ -1,11 +1,14 @@
 package com.shhridoy.notepad;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 
 import com.shhridoy.notepad.mDatabase.DBAdapter;
 import com.shhridoy.notepad.mDatabase.RetrieveDBInfoByID;
+import com.shhridoy.notepad.mDialogs.MyDialogs;
+import com.shhridoy.notepad.mUtilities.MyPreferences;
 
 public class AddNoteActivity extends AppCompatActivity {
 
@@ -24,7 +29,8 @@ public class AddNoteActivity extends AppCompatActivity {
 
     private int note_id;
 
-    private String note_title = null, note_details = null, note_password = null, note_password_hint = null, note_color = null;
+    private String note_title = null, note_details = null, note_color = null;
+    private static int note_lock = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +51,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
             note_title = retrieveDBInfo.getTitle();
             note_details = retrieveDBInfo.getDetails();
-            note_password = retrieveDBInfo.getPassword();
-            note_password_hint = retrieveDBInfo.getPassword_hint();
+            note_lock = retrieveDBInfo.getLock();
             note_color = retrieveDBInfo.getColor();
         }
 
@@ -63,8 +68,7 @@ public class AddNoteActivity extends AppCompatActivity {
                                 getApplicationContext(),
                                 note_title,
                                 note_details,
-                                note_password,
-                                note_password_hint,
+                                note_lock,
                                 note_color
                         );
                     } else {
@@ -102,7 +106,46 @@ public class AddNoteActivity extends AppCompatActivity {
 
             return true;
         } else if (id == R.id.action_add_password) {
-            passwordSetDialog();
+
+            if (!MyPreferences.getPreference(this, "Password").equals("Default")) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(Html.fromHtml("<font color='#000000'>Note Lock!!</font>"));
+                builder.setMessage(Html.fromHtml("<font color='#000000'>Do you want to lock this note?</font>"));
+
+                builder.setNegativeButton(Html.fromHtml("No"),new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.setPositiveButton(Html.fromHtml("Yes"),new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        note_lock = 1;
+                        if (getIntent().getStringExtra("ID") != null) {
+                            DBAdapter.editNotesLock(getApplicationContext(), note_id, note_lock);
+                        }
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            } else {
+
+                boolean isPassSet = MyDialogs.setPassword(this);
+                if (isPassSet) {
+                    note_lock = 1;
+                    if (getIntent().getStringExtra("ID") != null) {
+                        DBAdapter.editNotesLock(getApplicationContext(), note_id, note_lock);
+                    }
+                }
+            }
             return true;
         }
 
@@ -123,25 +166,11 @@ public class AddNoteActivity extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password1 = passwdField1.getText().toString();
-                String password2 = passwdField2.getText().toString();
-                String passwordHint = passwdHintField.getText().toString();
-                if (password1.trim().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "You must put a password first.", Toast.LENGTH_LONG).show();
-                } else if (password2.trim().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "You must retype password once again.", Toast.LENGTH_LONG).show();
-                } else if (passwordHint.trim().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "You should put a password hint.", Toast.LENGTH_LONG).show();
-                } else if (!password1.equals(password2)) {
-                    Toast.makeText(getApplicationContext(), "Password doesn't match.", Toast.LENGTH_LONG).show();
-                } else {
-                    note_password = passwdField1.getText().toString().trim();
-                    note_password_hint = passwdHintField.getText().toString().trim();
-                    if (getIntent().getStringExtra("ID") != null) {
-                        DBAdapter.editNotesPassword(getApplicationContext(), note_id, note_password, note_password_hint);
-                    }
-                    dialog.cancel();
+                note_lock = 1;
+                if (getIntent().getStringExtra("ID") != null) {
+                    DBAdapter.editNotesLock(getApplicationContext(), note_id, note_lock);
                 }
+                dialog.cancel();
             }
         });
 

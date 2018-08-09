@@ -5,14 +5,14 @@
         android:id="@+id/action_add_password"
         android:orderInCategory="100"
         android:title="Password"
-        android:icon="@android:drawable/ic_secure"
+        android:icon="@drawable/ic_action_lock"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_color"
         android:orderInCategory="101"
         android:title="Note color"
-        android:icon="@android:drawable/ic_menu_compass"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_action_colorplate_black"
+        app:showAsAction="ifRoom" />
 
 </menu>

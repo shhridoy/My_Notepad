@@ -106,18 +106,18 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_trash_can) {
+            Toast.makeText(this, "Trash Can", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_theme) {
+            Toast.makeText(this, "Theme", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_settings) {
+            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_about) {
+            Toast.makeText(this, "About", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(this, "Sharing Intent", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(this, "Sending Intent", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,11 +139,10 @@ public class MainActivity extends AppCompatActivity
                 String title = cursor.getString(1);
                 String details = cursor.getString(2);
                 String date_time = cursor.getString(3);
-                String password = cursor.getString(4);
-                String password_hint = cursor.getString(5);
-                String color = cursor.getString(6);
+                int lock = cursor.getInt(4);
+                String color = cursor.getString(5);
 
-                ListItem listItems = new ListItem(id, title, details, date_time, password, password_hint, color);
+                ListItem listItems = new ListItem(id, title, details, date_time, lock, color);
                 itemsList.add(listItems);
                 adapter = new RecyclerViewAdapter(this, itemsList);
                 recyclerView.setAdapter(adapter);

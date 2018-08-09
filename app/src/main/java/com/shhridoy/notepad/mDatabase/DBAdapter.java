@@ -2,7 +2,6 @@ package com.shhridoy.notepad.mDatabase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
-import android.provider.ContactsContract;
 import android.widget.Toast;
 
 /**
@@ -11,19 +10,19 @@ import android.widget.Toast;
 
 public class DBAdapter {
 
-    public static void saveNoteInDB(Context context, String title, String details, String password, String password_hint, String color) {
+    public static void saveNoteInDB(Context context, String title, String details, int lock, String color) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         try {
-            dbHelper.addNote(title, details, password, password_hint, color);
+            dbHelper.addNote(title, details, lock, color);
             Toast.makeText(context, "Note saved!", Toast.LENGTH_LONG).show();
         } catch (SQLiteException e) {
             Toast.makeText(context, "Can't save!!!", Toast.LENGTH_LONG).show();
         }
     }
 
-    public static void editNoteInDB(Context context, int id, String title, String details, String password, String password_hint, String color) {
+    public static void editNoteInDB(Context context, int id, String title, String details, int lock, String color) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
-        boolean edited = dbHelper.editNote(id, title, details, password, password_hint, color);
+        boolean edited = dbHelper.editNote(id, title, details, lock, color);
         makeToast(context, edited, "Note updated", "Note doesn't updated!!");
     }
 
@@ -33,10 +32,10 @@ public class DBAdapter {
         makeToast(context, edited, "Note updated", "Note doesn't updated!!");
     }
 
-    public static void editNotesPassword(Context context, int id, String password, String password_hint) {
+    public static void editNotesLock(Context context, int id, int lock) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
-        boolean passwdEdited = dbHelper.editNotesPassword(id, password, password_hint);
-        makeToast(context, passwdEdited, "Password changed!", "Password doesn't changed!");
+        boolean passwdEdited = dbHelper.editNotesLock(id, lock);
+        makeToast(context, passwdEdited, "Locked!", "Doesn't Lock!");
     }
 
     public static void editNotesColor(Context context, int id, String color) {

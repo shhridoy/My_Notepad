@@ -27,25 +27,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addNote(String title, String details, String password, String password_hint, String color) {
+    public void addNote(String title, String details, int lock, String color) {
 
         ContentValues cv = new ContentValues();
         cv.put(Constants.NOTES_TITLE, title);
         cv.put(Constants.NOTES_DETAILS, details);
-        cv.put(Constants.NOTES_PASSWORD, password);
-        cv.put(Constants.NOTES_PASS_HINT, password_hint);
+        cv.put(Constants.NOTES_LOCK, lock);
         cv.put(Constants.NOTES_COLOR, color);
         this.getWritableDatabase().insertOrThrow(Constants.NOTES_TABLE, "", cv);
         this.getWritableDatabase().close();
 
     }
 
-    public boolean editNote(int id, String title, String details, String password, String password_hint, String color) {
+    public boolean editNote(int id, String title, String details, int lock, String color) {
         ContentValues cv = new ContentValues();
         cv.put(Constants.NOTES_TITLE, title);
         cv.put(Constants.NOTES_DETAILS, details);
-        cv.put(Constants.NOTES_PASSWORD, password);
-        cv.put(Constants.NOTES_PASS_HINT, password_hint);
+        cv.put(Constants.NOTES_LOCK, lock);
         cv.put(Constants.NOTES_COLOR, color);
 
         int result = this.getWritableDatabase()
@@ -64,10 +62,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    public boolean editNotesPassword(int id, String password, String password_hint) {
+    public boolean editNotesLock(int id, int lock) {
         ContentValues cv = new ContentValues();
-        cv.put(Constants.NOTES_PASSWORD, password);
-        cv.put(Constants.NOTES_PASS_HINT, password_hint);
+        cv.put(Constants.NOTES_LOCK, lock);
         int result = this.getWritableDatabase()
                 .update(Constants.NOTES_TABLE, cv, Constants.NOTES_ID+" =?", new String[]{String.valueOf(id)});
         this.getWritableDatabase().close();
