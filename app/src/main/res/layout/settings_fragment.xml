@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- START OF GENERAL SEGMENT -->
+
+        <TextView
+            android:id="@+id/settingsTitle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="General"
+            android:padding="5dp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/md_grey_500_1"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <RelativeLayout
+            android:id="@+id/settingsDefaultColorRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/settingsDefaultColorTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Default color"
+                android:textColor="@color/md_grey_900"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+            <View
+                android:id="@+id/settingsDefaultColorView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorAccent"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/md_grey_500_1" />
+
+        <LinearLayout
+            android:id="@+id/settingsFontSizeLL"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/settingsFontSizeHeadTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Default font size"
+                android:textColor="@color/md_grey_900"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/settingsFontSizeDetailsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Medium"
+                android:textColor="@color/md_grey_800_1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/md_grey_500_1" />
+
+        <LinearLayout
+            android:id="@+id/settingsViewLL"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/settingsViewHeadTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notes view"
+                android:textColor="@color/md_grey_900"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/settingsViewDetailsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="List"
+                android:textColor="@color/md_grey_800_1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/md_grey_500_1" />
+
+        <LinearLayout
+            android:id="@+id/settingsSortOderLL"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/settingsSortOrderHeadTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Default notes sort order"
+                android:textColor="@color/md_grey_900"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/settingsSortOderDetailsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Last created"
+                android:textColor="@color/md_grey_800_1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+        </LinearLayout>
+
+
+        <!-- START OF SECURITY SEGMENT -->
+
+        <TextView
+            android:id="@+id/settingsTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Security"
+            android:padding="5dp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/md_grey_500_1"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/settingsSetPasswordLL"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/settingsMasterPasswordHeadTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Master password"
+                android:textColor="@color/md_grey_900"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/settingsMasterPasswordDetailsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reset or clear master password"
+                android:textColor="@color/md_grey_800_1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="textStart"
+                android:gravity="start" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/md_grey_500_1" />
+
+        <RelativeLayout
+            android:id="@+id/settingsLockAppRL"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp">
+
+            <LinearLayout
+                android:id="@+id/settingsLockAppRL_LL"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settingsLockAppHeadTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lock App"
+                    android:textColor="@color/md_grey_900"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="textStart"
+                    android:gravity="start"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:id="@+id/settingsLockAppDetailsTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lock the app with master password"
+                    android:textColor="@color/md_grey_800_1"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAlignment="textStart"
+                    android:gravity="start"
+                    android:maxLines="1"/>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/settingsLockAppCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/md_grey_500_1" />
+
+    </LinearLayout>
+
+</ScrollView>

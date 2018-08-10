@@ -12,11 +12,7 @@ import android.widget.Toast;
 
 import com.shhridoy.notepad.R;
 import com.shhridoy.notepad.ViewNoteActivity;
-import com.shhridoy.notepad.mDatabase.DBAdapter;
-import com.shhridoy.notepad.mDatabase.RetrieveDBInfoByID;
 import com.shhridoy.notepad.mUtilities.MyPreferences;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by whoami on 8/9/2018.
