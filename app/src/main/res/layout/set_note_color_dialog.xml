@@ -5,35 +5,113 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
-    app:cardBackgroundColor="#FFF">
+    app:cardBackgroundColor="@color/md_grey_100">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/CardView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="5dp"
-            app:cardCornerRadius="5dp"
-            app:cardBackgroundColor="@color/colorPrimary">
-
-            <TextView
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/LL1"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            
+            <RelativeLayout
+                android:id="@+id/setColorRLRed"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/setNoteColorDlgTitleTV"
-                android:text="Note Color"
-                android:textAlignment="center"
-                android:textColor="#FFF"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:padding="10dp"/>
+                android:padding="10dp">
+                
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_red_500"/>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/setColorRLOrange"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
 
-        </android.support.v7.widget.CardView>
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_orange_500"/>
 
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/setColorRLYellow"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_yellow_500"/>
+
+            </RelativeLayout>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL2"
+            android:layout_below="@id/LL1"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/setColorRLLightGreen"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_light_green_500"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setColorRLBlue"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_blue_600"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setColorRLPurple"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_purple_500"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
