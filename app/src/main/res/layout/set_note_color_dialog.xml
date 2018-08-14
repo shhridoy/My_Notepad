@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-    app:cardBackgroundColor="@color/md_grey_100">
+    app:cardBackgroundColor="@color/md_grey_200">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -108,6 +108,57 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@color/md_purple_500"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL3"
+            android:layout_below="@id/LL2"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/setColorRLBlack"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="#000"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setColorRLGrey"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/md_grey_600"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setColorRLWhite"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="#FFF"/>
 
             </RelativeLayout>
 
