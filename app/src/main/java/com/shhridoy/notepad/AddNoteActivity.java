@@ -92,6 +92,14 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+
+
+
+        super.onBackPressed();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_note, menu);
         return true;
