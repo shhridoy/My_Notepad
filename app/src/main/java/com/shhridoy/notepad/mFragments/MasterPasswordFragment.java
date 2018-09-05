@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shhridoy.notepad.MainActivity;
 import com.shhridoy.notepad.R;
 import com.shhridoy.notepad.mUtilities.MyPreferences;
 
@@ -30,10 +33,27 @@ public class MasterPasswordFragment extends Fragment {
     private Button saveButton;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.master_password_fragment, container, false);
+
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        if (((AppCompatActivity)getActivity()) != null) {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        }
+        if (((MainActivity) getActivity()) != null) {
+            //noinspection ConstantConditions
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //noinspection ConstantConditions
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        }
 
         initViews(rootView);
 
@@ -104,17 +124,23 @@ public class MasterPasswordFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.settings_menu, menu);
+        menu.clear();
+        inflater.inflate(R.menu.master_password_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        //noinspection ConstantConditions
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
-            Toast.makeText(getContext(), "Re..", Toast.LENGTH_LONG).show();
+        if (id == R.id.action_clear_password) {
+            Toast.makeText(getContext(), "Clear password", Toast.LENGTH_LONG).show();
+        } else if (id == android.R.id.home) {
+            if (fragmentManager.findFragmentByTag("Password Fragment") != null && fragmentManager.findFragmentByTag("Password Fragment").isVisible()) {
+                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Password Fragment")).commit();
+            }
         }
 
         return super.onOptionsItemSelected(item);

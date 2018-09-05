@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +47,17 @@ public class SettingsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.settings_fragment, container, false);
 
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        if (((AppCompatActivity)getActivity()) != null) {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        }
+        if (((MainActivity) getActivity()) != null) {
+            //noinspection ConstantConditions
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //noinspection ConstantConditions
+            ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        }
+
         iniViews(rootView);
 
         onClickListeners();
@@ -53,18 +66,26 @@ public class SettingsFragment extends Fragment {
 
     }
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.settings_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        //noinspection ConstantConditions
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 Toast.makeText(getContext(), "Refreshing....", Toast.LENGTH_LONG).show();
+                break;
+            case android.R.id.home:
+                if (fragmentManager.findFragmentByTag("Settings") != null && fragmentManager.findFragmentByTag("Settings").isVisible()) {
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Settings")).commit();
+                }
                 break;
         }
 
