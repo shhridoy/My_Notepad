@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +37,7 @@ public class MasterPasswordFragment extends Fragment {
 
         initViews(rootView);
 
-        if (!MyPreferences.getPreference(getContext(), "Password").equals("Default")) {
+        if (MyPreferences.getPreference(getContext(), "Password").equals("Default")) {
             currentPasswordTitleTV.setVisibility(View.GONE);
             currentPasswordET.setVisibility(View.GONE);
         }
@@ -47,9 +48,49 @@ public class MasterPasswordFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentPasswordET.getText().toString().trim().length() == 0) {
-                    Toast.makeText(getContext(), "Enter you current password!", Toast.LENGTH_LONG).show();
+
+                if (!MyPreferences.getPreference(getContext(), "Password").equals("Default")) {
+                    if (currentPasswordET.getText().toString().trim().length() == 0) {
+                        currentPasswordWarningTV.setText("*Put your current password first.");
+                        currentPasswordWarningTV.setVisibility(View.VISIBLE);
+                    } else if (!currentPasswordET.getText().toString().trim().equals(MyPreferences.getPreference(getContext(), "Password"))) {
+                        currentPasswordWarningTV.setText("*Password is not correct.");
+                        currentPasswordWarningTV.setVisibility(View.VISIBLE);
+                    }
                 }
+
+                if (newPasswordET1.getText().toString().trim().length() == 0) {
+                    newPasswordWarningTV.setVisibility(View.VISIBLE);
+                    newPasswordWarningTV.setText("*Enter new password.");
+                    currentPasswordWarningTV.setVisibility(View.GONE);
+                } else if (!newPasswordET1.getText().toString().trim().equals(newPasswordET2.getText().toString().trim())) {
+                    newPasswordWarningTV.setVisibility(View.VISIBLE);
+                    newPasswordWarningTV.setText("*Password doesn't match.");
+                    currentPasswordWarningTV.setVisibility(View.GONE);
+                }
+
+                if (MyPreferences.getPreference(getContext(), "Password").equals("Default")) {
+                    if (newPasswordET1.getText().toString().trim().equals(newPasswordET2.getText().toString().trim())) {
+                        MyPreferences.setPreference(getContext(), "Password", newPasswordET1.getText().toString().trim());
+
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        if (fragmentManager.findFragmentByTag("Password Fragment") != null) {
+                            fragmentManager.beginTransaction().remove(fragmentManager.findFragmentByTag("Password Fragment")).commit();
+                        }
+
+                    }
+                } else {
+                    if (currentPasswordET.getText().toString().trim().equals(MyPreferences.getPreference(getContext(), "Password")) &&
+                            newPasswordET1.getText().toString().trim().equals(newPasswordET2.getText().toString().trim())) {
+                        MyPreferences.setPreference(getContext(), "Password", newPasswordET1.getText().toString().trim());
+
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        if (fragmentManager.findFragmentByTag("Password Fragment") != null) {
+                            fragmentManager.beginTransaction().remove(fragmentManager.findFragmentByTag("Password Fragment")).commit();
+                        }
+                    }
+                }
+
             }
         });
 
@@ -64,10 +105,18 @@ public class MasterPasswordFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.settings_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_refresh) {
+            Toast.makeText(getContext(), "Re..", Toast.LENGTH_LONG).show();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

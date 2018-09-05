@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.shhridoy.notepad.mDatabase.DatabaseHelper;
+import com.shhridoy.notepad.mFragments.SettingsFragment;
 import com.shhridoy.notepad.mRecyclerView.ListItem;
 import com.shhridoy.notepad.mRecyclerView.RecyclerViewAdapter;
 
@@ -70,11 +72,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (fragmentManager.findFragmentByTag("Settings") != null && fragmentManager.findFragmentByTag("Settings").isVisible()) {
+                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Settings")).commit();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -106,12 +113,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         if (id == R.id.nav_trash_can) {
             Toast.makeText(this, "Trash Can", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_theme) {
             Toast.makeText(this, "Theme", Toast.LENGTH_LONG).show();
+
         } else if (id == R.id.nav_settings) {
-            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show();
+
+            if(fragmentManager.findFragmentByTag("Settings") != null) {
+                fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("Settings")).commit();
+            } else {
+                fragmentManager.beginTransaction().add(android.R.id.content, new SettingsFragment(), "Settings").commit();
+            }
+
         } else if (id == R.id.nav_about) {
             Toast.makeText(this, "About", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_share) {
