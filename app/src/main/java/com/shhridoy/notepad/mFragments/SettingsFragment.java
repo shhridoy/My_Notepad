@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.shhridoy.notepad.MainActivity;
 import com.shhridoy.notepad.R;
 import com.shhridoy.notepad.mDialogs.ColorDialog;
+import com.shhridoy.notepad.mDialogs.FontDialog;
+import com.shhridoy.notepad.mUtilities.MyPreferences;
 
 /**
  * Created by whoami on 9/5/2018.
@@ -59,6 +61,12 @@ public class SettingsFragment extends Fragment {
         }
 
         iniViews(rootView);
+
+        if (MyPreferences.getPreference(getContext(), "Font Size").equals("Default")) {
+            defaultFontSizeDetailsTV.setText("Medium");
+        } else {
+            defaultFontSizeDetailsTV.setText(MyPreferences.getPreference(getContext(), "Font Size"));
+        }
 
         onClickListeners();
 
@@ -158,11 +166,7 @@ public class SettingsFragment extends Fragment {
         defaultFontSizeLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(
-                        getContext(),
-                        "Default Font size "+defaultFontSizeDetailsTV.getText().toString(),
-                        Toast.LENGTH_LONG)
-                        .show();
+                new FontDialog(getContext(), defaultFontSizeDetailsTV);
             }
         });
 
