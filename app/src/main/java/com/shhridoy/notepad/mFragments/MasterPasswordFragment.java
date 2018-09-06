@@ -1,12 +1,16 @@
 package com.shhridoy.notepad.mFragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -132,13 +136,38 @@ public class MasterPasswordFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         //noinspection ConstantConditions
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         int id = item.getItemId();
 
         if (id == R.id.action_clear_password) {
-            Toast.makeText(getContext(), "Clear password", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());;
+            builder.setTitle(Html.fromHtml("<font color='#1DC4ED'>Clear master password!!</font>"));
+            builder.setMessage(Html.fromHtml("<font color='#000000'>Locked notes will be deleted if you clear the password. Do you want to proceed?</font>"));
+            builder.setNegativeButton(Html.fromHtml("No"),new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(Html.fromHtml("Yes"),new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    MyPreferences.setPreference(getContext(), "Password", "Default");
+                    if (fragmentManager.findFragmentByTag("Password Fragment") != null &&
+                            fragmentManager.findFragmentByTag("Password Fragment").isVisible()) {
+                        fragmentManager.beginTransaction().remove(fragmentManager.findFragmentByTag("Password Fragment")).commit();
+                        fragmentManager.beginTransaction().add(android.R.id.content, new MasterPasswordFragment(), "Password Fragment").commit();
+                    }
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+
         } else if (id == android.R.id.home) {
-            if (fragmentManager.findFragmentByTag("Password Fragment") != null && fragmentManager.findFragmentByTag("Password Fragment").isVisible()) {
+            if (fragmentManager.findFragmentByTag("Password Fragment") != null &&
+                    fragmentManager.findFragmentByTag("Password Fragment").isVisible()) {
                 fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Password Fragment")).commit();
             }
         }

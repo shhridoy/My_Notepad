@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@color/md_grey_50">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/enterMasterPasswordTitle1TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select the font size"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/md_grey_900"
+            android:textStyle="normal"
+            android:textAlignment="center"
+            android:padding="10dp" />
+
+        <RelativeLayout
+            android:id="@+id/fontSizeSelectionRLSmall"
+            android:layout_below="@id/enterMasterPasswordTitle1TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/smallFontSizeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_grey_100"
+                android:text="Small"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/md_grey_900"
+                android:textStyle="normal"
+                android:textAlignment="center"
+                android:padding="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/fontSizeSelectionRLMedium"
+            android:layout_below="@id/fontSizeSelectionRLSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/mediumFontSizeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_grey_100"
+                android:text="Medium"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/md_grey_900"
+                android:textStyle="normal"
+                android:textAlignment="center"
+                android:padding="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/fontSizeSelectionRLLarge"
+            android:layout_below="@id/fontSizeSelectionRLMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/LargeFontSizeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_grey_100"
+                android:text="Large"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/md_grey_900"
+                android:textStyle="normal"
+                android:textAlignment="center"
+                android:padding="10dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
