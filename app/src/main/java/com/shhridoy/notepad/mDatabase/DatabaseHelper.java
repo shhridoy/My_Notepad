@@ -27,11 +27,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addNote(String title, String details, int lock, String color) {
+    public void addNote(String title, String details, String dateTime, int lock, String color) {
 
         ContentValues cv = new ContentValues();
         cv.put(Constants.NOTES_TITLE, title);
         cv.put(Constants.NOTES_DETAILS, details);
+        cv.put(Constants.NOTES_DATE_TIME, dateTime);
         cv.put(Constants.NOTES_LOCK, lock);
         cv.put(Constants.NOTES_COLOR, color);
         this.getWritableDatabase().insertOrThrow(Constants.NOTES_TABLE, "", cv);
@@ -39,10 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean editNote(int id, String title, String details, int lock, String color) {
+    public boolean editNote(int id, String title, String details, String dateTime, int lock, String color) {
         ContentValues cv = new ContentValues();
         cv.put(Constants.NOTES_TITLE, title);
         cv.put(Constants.NOTES_DETAILS, details);
+        cv.put(Constants.NOTES_DATE_TIME, dateTime);
         cv.put(Constants.NOTES_LOCK, lock);
         cv.put(Constants.NOTES_COLOR, color);
 
@@ -52,10 +54,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    public boolean editNotesTitleDetails(int id, String title, String details) {
+    public boolean editNotesTitleDetails(int id, String title, String details, String dateTime) {
         ContentValues cv = new ContentValues();
         cv.put(Constants.NOTES_TITLE, title);
         cv.put(Constants.NOTES_DETAILS, details);
+        cv.put(Constants.NOTES_DATE_TIME, dateTime);
         int result = this.getWritableDatabase()
                 .update(Constants.NOTES_TABLE, cv, Constants.NOTES_ID+" =?", new String[]{String.valueOf(id)});
         this.getWritableDatabase().close();
@@ -71,9 +74,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
-    public boolean editNotesColor(int id, String color) {
+    public boolean editNotesColor(int id, String color, String dateTime) {
         ContentValues cv = new ContentValues();
         cv.put(Constants.NOTES_COLOR, color);
+        cv.put(Constants.NOTES_DATE_TIME, dateTime);
         int result = this.getWritableDatabase()
                 .update(Constants.NOTES_TABLE, cv, Constants.NOTES_ID+" =?", new String[]{String.valueOf(id)});
         this.getWritableDatabase().close();

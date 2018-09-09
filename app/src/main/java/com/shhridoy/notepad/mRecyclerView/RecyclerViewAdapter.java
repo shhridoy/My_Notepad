@@ -52,8 +52,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final ListItem listItem = itemsList.get(position);
+
+        // EXTRACTING THE DATE
+        String[] fullDateTime = listItem.getDate_time().split(" ");
+        String date = null;
+        try {
+            date = fullDateTime[0] + " " + fullDateTime[1] + " " + fullDateTime[2];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            date = listItem.getDate_time();
+            e.printStackTrace();
+        }
+
         holder.tvTitle.setText(listItem.getTitle());
-        holder.tvDateTime.setText(listItem.getDate_time());
+        holder.tvDateTime.setText(date);
         holder.tvInvisibleID.setText(String.valueOf(listItem.getId()));
 
         holder.rlItems.setOnClickListener(new View.OnClickListener() {

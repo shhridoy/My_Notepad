@@ -2,11 +2,13 @@ package com.shhridoy.notepad.mDialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
 import com.shhridoy.notepad.R;
+import com.shhridoy.notepad.mUtilities.MyPreferences;
 
 /**
  * Created by whoami on 8/14/2018.
@@ -17,26 +19,45 @@ public class ColorDialog {
     private Context context;
     private int id;
     private Dialog dialog;
-    private String selectedColor = null;
 
+    private View view;
     private RelativeLayout rlRed, rlOrange, rlYellow, rlLightGreen, rlBlue, rlPurple, rlBlack, rlGrey, rlWhite;
 
-    public ColorDialog (Context context, int id) {
+    public ColorDialog (Context context, View view, int id) {
         this.context = context;
         this.id = id;
+        this.view = view;
         dialog = new Dialog(this.context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.set_note_color_dialog);
 
         iniViews();
 
+        if (MyPreferences.getPreference(this.context, "Default Color").equals("Red")) {
+            rlRed.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Orange")) {
+            rlOrange.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Yellow")) {
+            rlYellow.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Light Green")) {
+            rlLightGreen.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Blue")) {
+            rlBlue.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Purple")) {
+            rlPurple.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Black")) {
+            rlBlack.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("Grey")) {
+            rlGrey.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else if (MyPreferences.getPreference(this.context, "Default Color").equals("White")) {
+            rlWhite.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        } else {
+            rlRed.setBackgroundColor(context.getResources().getColor(R.color.md_grey_400));
+        }
+
         clickListeners();
 
         dialog.show();
-    }
-
-    public String getSelectedColor() {
-        return selectedColor;
     }
 
     private void iniViews() {
@@ -57,7 +78,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlRed);
-                selectedColor = "Red";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_red_500));
+                MyPreferences.setPreference(context, "Default Color", "Red");
+                dialog.dismiss();
             }
         });
 
@@ -65,7 +88,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlOrange);
-                selectedColor = "Orange";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_orange_500));
+                MyPreferences.setPreference(context, "Default Color", "Orange");
+                dialog.dismiss();
             }
         });
 
@@ -73,7 +98,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlYellow);
-                selectedColor = "Yellow";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_yellow_600));
+                MyPreferences.setPreference(context, "Default Color", "Yellow");
+                dialog.dismiss();
             }
         });
 
@@ -81,7 +108,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlLightGreen);
-                selectedColor = "LightGreen";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_light_green_500));
+                MyPreferences.setPreference(context, "Default Color", "Light Green");
+                dialog.dismiss();
             }
         });
 
@@ -89,7 +118,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlBlue);
-                selectedColor = "Blue";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_blue_500));
+                MyPreferences.setPreference(context, "Default Color", "Blue");
+                dialog.dismiss();
             }
         });
 
@@ -97,7 +128,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlPurple);
-                selectedColor = "Purple";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_purple_500));
+                MyPreferences.setPreference(context, "Default Color", "Purple");
+                dialog.dismiss();
             }
         });
 
@@ -105,7 +138,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlBlack);
-                selectedColor = "Black";
+                view.setBackgroundColor(Color.BLACK);
+                MyPreferences.setPreference(context, "Default Color", "Black");
+                dialog.dismiss();
             }
         });
 
@@ -113,7 +148,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlGrey);
-                selectedColor = "Grey";
+                view.setBackgroundColor(context.getResources().getColor(R.color.md_grey_500));
+                MyPreferences.setPreference(context, "Default Color", "Grey");
+                dialog.dismiss();
             }
         });
 
@@ -121,7 +158,9 @@ public class ColorDialog {
             @Override
             public void onClick(View v) {
                 selectedBackground(rlWhite);
-                selectedColor = "White";
+                view.setBackgroundColor(Color.WHITE);
+                MyPreferences.setPreference(context, "Default Color", "White");
+                dialog.dismiss();
             }
         });
 

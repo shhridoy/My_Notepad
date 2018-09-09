@@ -36,11 +36,21 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/viewNoteDatesTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LLTitle"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="9 Sep 2018 01:10:40 PM"
+            android:textColor="@color/md_grey_700"
+            android:gravity="center"/>
+
         <LinearLayout
             android:id="@+id/LLDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/LLTitle"
+            android:layout_below="@id/viewNoteDatesTV"
             android:layout_above="@+id/SaveBtn">
 
             <TextView
@@ -49,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="normal"
+                android:textColor="#000"
                 android:layout_marginTop="5dp"
                 android:padding="5dp"
                 android:background="@android:color/transparent"
@@ -58,15 +69,6 @@
                 android:focusable="true"/>
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/editBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary"
-            android:text="EDIT"
-            android:textColor="#FFF"/>
 
     </RelativeLayout>
 

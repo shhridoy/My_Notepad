@@ -17,7 +17,6 @@ public class Constants {
     public static final String NOTES_DETAILS = "notes_details";
     public static final String NOTES_DATE_TIME = "notes_date_time";
     public static final String NOTES_LOCK = "notes_lock";
-    //public static final String NOTES_PASS_HINT = "notes_pass_hint";
     public static final String NOTES_COLOR = "notes_color";
 
     public static final String CREATE_NOTES_TABLE = "CREATE TABLE "+ NOTES_TABLE +
@@ -25,7 +24,7 @@ public class Constants {
             NOTES_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
             NOTES_TITLE +" TEXT, " +
             NOTES_DETAILS +" TEXT, " +
-            NOTES_DATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+            NOTES_DATE_TIME + " TEXT, " +
             NOTES_LOCK + " INTEGER DEFAULT 0, " +
             NOTES_COLOR + " TEXT);";
 

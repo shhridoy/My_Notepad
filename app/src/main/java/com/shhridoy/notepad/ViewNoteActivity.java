@@ -19,7 +19,7 @@ import com.shhridoy.notepad.mDatabase.RetrieveDBInfoByID;
 
 public class ViewNoteActivity extends AppCompatActivity {
 
-    private TextView tvTitle, tvDetails;
+    private TextView tvTitle, tvDetails, tvDates;
     private Button btnEdit;
     private int note_id;
 
@@ -41,7 +41,7 @@ public class ViewNoteActivity extends AppCompatActivity {
 
         tvTitle = findViewById(R.id.viewNoteTitleTV);
         tvDetails = findViewById(R.id.viewNoteDetailsTV);
-        btnEdit = findViewById(R.id.editBtn);
+        tvDates = findViewById(R.id.viewNoteDatesTV);
 
         note_id = Integer.parseInt(getIntent().getStringExtra("ID"));
 
@@ -49,16 +49,8 @@ public class ViewNoteActivity extends AppCompatActivity {
             RetrieveDBInfoByID dbdata = new RetrieveDBInfoByID(this, note_id);
             tvTitle.setText(dbdata.getTitle());
             tvDetails.setText(dbdata.getDetails());
+            tvDates.setText(dbdata.getDate_time());
         }
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewNoteActivity.this, AddNoteActivity.class);
-                intent.putExtra("ID", String.valueOf(note_id));
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -81,6 +73,11 @@ public class ViewNoteActivity extends AppCompatActivity {
             if (removed) {
                 finish();
             }
+            return true;
+        } else if (id == R.id.action_edit_note) {
+            Intent intent = new Intent(ViewNoteActivity.this, AddNoteActivity.class);
+            intent.putExtra("ID", String.valueOf(note_id));
+            startActivity(intent);
             return true;
         }
 

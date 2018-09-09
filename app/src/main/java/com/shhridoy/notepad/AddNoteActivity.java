@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.shhridoy.notepad.mDatabase.DBAdapter;
 import com.shhridoy.notepad.mDatabase.RetrieveDBInfoByID;
 import com.shhridoy.notepad.mDialogs.MyDialogs;
+import com.shhridoy.notepad.mUtilities.DatesFormat;
 import com.shhridoy.notepad.mUtilities.MyPreferences;
 
 public class AddNoteActivity extends AppCompatActivity {
@@ -68,6 +69,7 @@ public class AddNoteActivity extends AppCompatActivity {
                                 getApplicationContext(),
                                 note_title,
                                 note_details,
+                                DatesFormat.getFullDateAndTime2(),
                                 note_lock,
                                 note_color
                         );
@@ -76,7 +78,8 @@ public class AddNoteActivity extends AppCompatActivity {
                                 getApplicationContext(),
                                 note_id,
                                 note_title,
-                                note_details
+                                note_details,
+                                DatesFormat.getFullDateAndTime2()
                         );
                     }
                     Intent intent = new Intent(AddNoteActivity.this, MainActivity.class);

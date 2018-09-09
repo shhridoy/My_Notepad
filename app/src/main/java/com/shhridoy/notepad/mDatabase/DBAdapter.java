@@ -10,25 +10,25 @@ import android.widget.Toast;
 
 public class DBAdapter {
 
-    public static void saveNoteInDB(Context context, String title, String details, int lock, String color) {
+    public static void saveNoteInDB(Context context, String title, String details, String dateTime, int lock, String color) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         try {
-            dbHelper.addNote(title, details, lock, color);
+            dbHelper.addNote(title, details, dateTime, lock, color);
             Toast.makeText(context, "Note saved!", Toast.LENGTH_LONG).show();
         } catch (SQLiteException e) {
             Toast.makeText(context, "Can't save!!!", Toast.LENGTH_LONG).show();
         }
     }
 
-    public static void editNoteInDB(Context context, int id, String title, String details, int lock, String color) {
+    public static void editNoteInDB(Context context, int id, String title, String details, String dateTime, int lock, String color) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
-        boolean edited = dbHelper.editNote(id, title, details, lock, color);
+        boolean edited = dbHelper.editNote(id, title, details, dateTime, lock, color);
         makeToast(context, edited, "Note updated", "Note doesn't updated!!");
     }
 
-    public static void editNotesTitleAndDetails(Context context, int id, String title, String details) {
+    public static void editNotesTitleAndDetails(Context context, int id, String title, String details, String dateTime) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
-        boolean edited = dbHelper.editNotesTitleDetails(id, title, details);
+        boolean edited = dbHelper.editNotesTitleDetails(id, title, details, dateTime);
         makeToast(context, edited, "Note updated", "Note doesn't updated!!");
     }
 
@@ -38,9 +38,9 @@ public class DBAdapter {
         makeToast(context, passwdEdited, "Locked!", "Doesn't Lock!");
     }
 
-    public static void editNotesColor(Context context, int id, String color) {
+    public static void editNotesColor(Context context, int id, String color, String dateTime) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
-        boolean colorChanged = dbHelper.editNotesColor(id, color);
+        boolean colorChanged = dbHelper.editNotesColor(id, color, dateTime);
         makeToast(context, colorChanged, "Color changed!", "Color doesn't changed!");
     }
 

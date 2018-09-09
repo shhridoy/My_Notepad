@@ -62,6 +62,28 @@ public class SettingsFragment extends Fragment {
 
         iniViews(rootView);
 
+        if (MyPreferences.getPreference(getContext(), "Default Color").equals("Red")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Orange")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_orange_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Yellow")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_yellow_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Light Green")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_light_green_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Blue")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_blue_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Purple")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_purple_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Black")) {
+            defaultColorView.setBackgroundColor(Color.BLACK);
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Grey")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_grey_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("White")) {
+            defaultColorView.setBackgroundColor(Color.WHITE);
+        } else {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
+        }
+        
         if (MyPreferences.getPreference(getContext(), "Font Size").equals("Default")) {
             defaultFontSizeDetailsTV.setText("Medium");
         } else {
@@ -114,55 +136,12 @@ public class SettingsFragment extends Fragment {
         defaultColorRL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorDialog colorDialog = new ColorDialog(getContext(), -1);
+                new ColorDialog(getContext(), defaultColorView, -1);
 
-                if (colorDialog.getSelectedColor() != null) {
-                    switch (colorDialog.getSelectedColor()) {
-
-                        case "Red":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
-                            break;
-
-                        case "Orange":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_orange_500));
-                            break;
-
-                        case "Yellow":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_yellow_600));
-                            break;
-
-                        case "LightGreen":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_light_green_500));
-                            break;
-
-                        case "Blue":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_blue_600));
-                            break;
-
-                        case "Purple":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_purple_500));
-                            break;
-
-                        case "Black":
-                            defaultColorView.setBackgroundColor(Color.BLACK);
-                            break;
-
-                        case "Grey":
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_grey_600));
-                            break;
-
-                        case "White":
-                            defaultColorView.setBackgroundColor(Color.WHITE);
-                            break;
-
-                        default:
-                            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
-
-                    }
-                }
             }
         });
 
+        // DEFAULT FONT COLOR RELATIVE LAYOUT ON CLICK LISTENER
         defaultFontSizeLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
