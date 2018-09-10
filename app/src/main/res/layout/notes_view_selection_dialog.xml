@@ -11,28 +11,28 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/enterMasterPasswordTitle1TV"
+            android:id="@+id/notesViewSelectionDialogTitleTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select the font size"
+            android:text="View"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/md_grey_900"
             android:textStyle="normal"
             android:padding="10dp" />
 
         <RelativeLayout
-            android:id="@+id/fontSizeSelectionRLSmall"
-            android:layout_below="@id/enterMasterPasswordTitle1TV"
+            android:id="@+id/notesViewSelectionRLSmallList"
+            android:layout_below="@id/notesViewSelectionDialogTitleTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground">
 
             <TextView
-                android:id="@+id/smallFontSizeText"
+                android:id="@+id/smallListText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_grey_100"
-                android:text="Small"
+                android:text="Small list"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/md_grey_900"
                 android:textStyle="normal"
@@ -42,18 +42,18 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/fontSizeSelectionRLMedium"
-            android:layout_below="@id/fontSizeSelectionRLSmall"
+            android:id="@+id/notesViewSelectionRLMediumList"
+            android:layout_below="@id/notesViewSelectionRLSmallList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground">
 
             <TextView
-                android:id="@+id/mediumFontSizeText"
+                android:id="@+id/mediumListText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_grey_100"
-                android:text="Medium"
+                android:text="Medium list"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/md_grey_900"
                 android:textStyle="normal"
@@ -63,18 +63,39 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/fontSizeSelectionRLLarge"
-            android:layout_below="@id/fontSizeSelectionRLMedium"
+            android:id="@+id/notesViewSelectionRLDetailsList"
+            android:layout_below="@id/notesViewSelectionRLMediumList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground">
 
             <TextView
-                android:id="@+id/LargeFontSizeText"
+                android:id="@+id/detailsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_grey_100"
-                android:text="Large"
+                android:text="Details"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/md_grey_900"
+                android:textStyle="normal"
+                android:textAlignment="center"
+                android:padding="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/notesViewSelectionRLGridView"
+            android:layout_below="@id/notesViewSelectionRLDetailsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/gridText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_grey_100"
+                android:text="Grid"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/md_grey_900"
                 android:textStyle="normal"
