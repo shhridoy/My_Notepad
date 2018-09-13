@@ -24,6 +24,7 @@ import com.shhridoy.notepad.mDatabase.DatabaseHelper;
 import com.shhridoy.notepad.mFragments.SettingsFragment;
 import com.shhridoy.notepad.mRecyclerView.ListItem;
 import com.shhridoy.notepad.mRecyclerView.RecyclerViewAdapter;
+import com.shhridoy.notepad.mUtilities.MyPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private List<ListItem> itemsList;
     private DatabaseHelper dbHelper;
     private Cursor cursor;
+    private String viewPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity
         itemsList = new ArrayList<>();
 
         loadRecyclerViewFromDatabase();
+
+        viewPref = MyPreferences.getPreference(this, "Notes View");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +83,10 @@ public class MainActivity extends AppCompatActivity
         } else {
             if (fragmentManager.findFragmentByTag("Settings") != null && fragmentManager.findFragmentByTag("Settings").isVisible()) {
                 fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("Settings")).commit();
+                if (!viewPref.equals(MyPreferences.getPreference(this, "Notes View"))) {
+                    finish();
+                    startActivity(new Intent(this, MainActivity.class));
+                }
             } else {
                 super.onBackPressed();
             }

@@ -24,6 +24,7 @@ import com.shhridoy.notepad.MainActivity;
 import com.shhridoy.notepad.R;
 import com.shhridoy.notepad.mDialogs.ColorDialog;
 import com.shhridoy.notepad.mDialogs.FontDialog;
+import com.shhridoy.notepad.mDialogs.ViewDialog;
 import com.shhridoy.notepad.mUtilities.MyPreferences;
 
 /**
@@ -33,9 +34,9 @@ import com.shhridoy.notepad.mUtilities.MyPreferences;
 public class SettingsFragment extends Fragment {
 
     private RelativeLayout defaultColorRL;
-    private LinearLayout defaultFontSizeLL, setPasswordLL;
+    private LinearLayout defaultFontSizeLL, defaultViewLL, setPasswordLL;
     private View defaultColorView;
-    private TextView defaultFontSizeDetailsTV;
+    private TextView defaultFontSizeDetailsTV, defaultViewDetailsTV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,33 +63,7 @@ public class SettingsFragment extends Fragment {
 
         iniViews(rootView);
 
-        if (MyPreferences.getPreference(getContext(), "Default Color").equals("Red")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Orange")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_orange_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Yellow")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_yellow_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Light Green")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_light_green_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Blue")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_blue_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Purple")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_purple_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Black")) {
-            defaultColorView.setBackgroundColor(Color.BLACK);
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Grey")) {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_grey_500));
-        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("White")) {
-            defaultColorView.setBackgroundColor(Color.WHITE);
-        } else {
-            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
-        }
-        
-        if (MyPreferences.getPreference(getContext(), "Font Size").equals("Default")) {
-            defaultFontSizeDetailsTV.setText("Medium");
-        } else {
-            defaultFontSizeDetailsTV.setText(MyPreferences.getPreference(getContext(), "Font Size"));
-        }
+        initViewPreferences();
 
         onClickListeners();
 
@@ -126,13 +101,51 @@ public class SettingsFragment extends Fragment {
         defaultColorRL = v.findViewById(R.id.settingsDefaultColorRL);
         defaultColorView = v.findViewById(R.id.settingsDefaultColorView);
         defaultFontSizeLL = v.findViewById(R.id.settingsFontSizeLL);
+        defaultViewLL = v.findViewById(R.id.settingsViewLL);
         setPasswordLL = v.findViewById(R.id.settingsSetPasswordLL);
         defaultFontSizeDetailsTV = v.findViewById(R.id.settingsFontSizeDetailsTV);
+        defaultViewDetailsTV = v.findViewById(R.id.settingsViewDetailsTV);
+    }
+
+    private void initViewPreferences() {
+        if (MyPreferences.getPreference(getContext(), "Default Color").equals("Red")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Orange")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_orange_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Yellow")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_yellow_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Light Green")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_light_green_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Blue")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_blue_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Purple")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_purple_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Black")) {
+            defaultColorView.setBackgroundColor(Color.BLACK);
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("Grey")) {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_grey_500));
+        } else if (MyPreferences.getPreference(getContext(), "Default Color").equals("White")) {
+            defaultColorView.setBackgroundColor(Color.WHITE);
+        } else {
+            defaultColorView.setBackgroundColor(getResources().getColor(R.color.md_red_500));
+        }
+
+        if (MyPreferences.getPreference(getContext(), "Font Size").equals("Default")) {
+            defaultFontSizeDetailsTV.setText("Medium");
+        } else {
+            defaultFontSizeDetailsTV.setText(MyPreferences.getPreference(getContext(), "Font Size"));
+        }
+
+        if (MyPreferences.getPreference(getContext(), "Notes View").equals("Default")) {
+            defaultViewDetailsTV.setText("Medium list");
+        } else {
+            defaultViewDetailsTV.setText(MyPreferences.getPreference(getContext(), "Notes View"));
+        }
     }
 
     private void onClickListeners() {
 
-        // DEFAULT COLOR RELATIVE LAYOUT ON CLICK LISTENER
+        // DEFAULT COLOR RELATIVE LAYOUT CLICK LISTENER
         defaultColorRL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +154,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        // DEFAULT FONT COLOR RELATIVE LAYOUT ON CLICK LISTENER
+        // DEFAULT FONT COLOR RELATIVE LAYOUT CLICK LISTENER
         defaultFontSizeLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +162,15 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        // DEFAULT NOTES VIEW LAYOUT CLICK LISTENER
+        defaultViewLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ViewDialog(getContext(), defaultViewDetailsTV);
+            }
+        });
+
+        // MASTER PASSWORD FRAGMENT CLICK LISTENER
         setPasswordLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

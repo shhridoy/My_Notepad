@@ -45,7 +45,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_medium, parent, false);
+        View view = null;
+        if (MyPreferences.getPreference(context, "Notes View").equalsIgnoreCase("Small list")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_small, parent, false);
+        } else if (MyPreferences.getPreference(context, "Notes View").equalsIgnoreCase("Medium list")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_medium, parent, false);
+        } else if (MyPreferences.getPreference(context, "Notes View").equalsIgnoreCase("List with details")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_large, parent, false);
+        } else if (MyPreferences.getPreference(context, "Notes View").equalsIgnoreCase("Grid")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_large, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_medium, parent, false);
+        }
+
         return new ViewHolder(view);
     }
 
@@ -64,6 +76,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.tvTitle.setText(listItem.getTitle());
+
+        // FOR ITEM VIEW DETAILS AND GRID
+        if (MyPreferences.getPreference(context, "Notes View").equalsIgnoreCase("List with details") ||
+                MyPreferences.getPreference(context, "Notes View").equalsIgnoreCase("Grid")) {
+
+            holder.tvDetails.setText(listItem.getDetails());
+        }
+
         holder.tvDateTime.setText(date);
         holder.tvInvisibleID.setText(String.valueOf(listItem.getId()));
 
@@ -91,6 +111,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
         TextView tvTitle, tvDateTime, tvInvisibleID;
+        TextView tvDetails; // FOR LIST VIEW WITH DETAILS
         RelativeLayout rlItems;
 
         ViewHolder(View itemView) {
@@ -100,6 +121,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvInvisibleID = itemView.findViewById(R.id.listItemInvisisbleIDTV);
             rlItems = itemView.findViewById(R.id.RLNotesListItem);
             itemView.setOnCreateContextMenuListener(this);
+
+            tvDetails = itemView.findViewById(R.id.listItemDetailsTV); // FOR LIST VIEW WITH DETAILS
+
             //itemView.setOnClickListener(this);
         }
 
